@@ -1,11 +1,9 @@
 package com.rchab.repository;
 
 import com.rchab.entity.Employee;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeRepository {
@@ -86,5 +84,25 @@ public class EmployeeRepository {
             System.out.println(he.getMessage());
         }
         session.close();
+    }
+
+    public static  List<Employee> findByFirstName(String firstName){
+        Session session = factory.openSession();
+        List<Employee> employeeList = new ArrayList<Employee>();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            Query query = session.createQuery("from Employee where firstName = :name");
+            query.setParameter("name", firstName);
+            employeeList = query.list();
+            tx.commit();
+        } catch (HibernateException he){
+            if(tx != null){
+                tx.rollback();
+            }
+            System.out.println(he.getMessage());
+        }
+        session.close();
+        return employeeList;
     }
 }

@@ -26,6 +26,13 @@ public class Main {
             System.out.println(emp);
         }
 
+        //        find by FirstName
+        List<Employee> employees = EmployeeRepository.findByFirstName("Vasyl");
+        System.out.println("Search by name: ");
+        for (Employee emp: employees){
+            System.out.println(emp);
+        }
+
         //        delete employee
         employee.setId(addId);
         EmployeeRepository.deleteEmployee(employee);

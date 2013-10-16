@@ -49,6 +49,6 @@ public class Employee {
 
     @Override
     public String toString() {
-        return firstName + " " + secondName + ": salery " + salery;
+        return "id=" + id + " " + firstName + " " + secondName + ": salery " + salery;
     }
 }
